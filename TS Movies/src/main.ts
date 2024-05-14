@@ -10,37 +10,30 @@ import { movies } from "./array";
 // ?  - alle relevanten Elemente holen
 // ?    - EventListener definieren
 // ?  - mit console.log testen, ob alle Klicks funktionieren
-//    - eigentliche Logik entwickeln
-// 6. CSS
-// 7. Ausgiebig testen
-// 8. Bonus?
+//?eigentliche Logik entwickeln
+//? 6. CSS
+//? 7. Ausgiebig testen
+//? 8. Bonus?
 
 const searchButton = document.getElementById("searchButton");
+const addButton = document.getElementById("addButton");
 const inputField = document.getElementById("searchInput") as HTMLInputElement;
+const titleInput = document.getElementById("titleInput") as HTMLInputElement;
+const yearInput = document.getElementById("yearInput") as HTMLInputElement;
+const durationInput = document.getElementById(
+  "durationInput"
+) as HTMLInputElement;
+const directorInput = document.getElementById(
+  "directorInput"
+) as HTMLInputElement;
+const genreInput = document.getElementById("genreInput") as HTMLInputElement;
+const ratingInput = document.getElementById("ratingInput") as HTMLInputElement;
 const yearUpButton = document.getElementById("yearUpButton");
 const yearDownButton = document.getElementById("yearDownButton");
 const bestRateButton = document.getElementById("bestRateButton");
 const resultSection = document.getElementById("resultSection");
 
-//? Array to LowerCase
-//?
-
-// function processArray(array: any[]): [string, string, string] {
-//   const firstThreeLowercase = array
-//     .slice(0, 4)
-//     .map((item) => item.toLowerCase());
-//   return [
-//     firstThreeLowercase[0],
-//     firstThreeLowercase[1],
-//     firstThreeLowercase[2],
-//   ];
-// }
-
-// Durch jedes Array in movies iterieren und die Funktion anwenden
-// const modifiedMovies = movies.map(processArray);
-// console.log(modifiedMovies);
-
-//?
+//! Array to LowerCase
 
 function resultCard(
   movieList: [string, string, string, string, string[], string][]
@@ -73,12 +66,23 @@ function resultCard(
   }
 }
 
+function noResultCard() {
+  if (resultSection) {
+    const card = document.createElement("div");
+    card.className = "movieCard";
+    const headlineElement = document.createElement("h2");
+    headlineElement.innerText = "Not Found";
+    card.appendChild(headlineElement);
+    resultSection.appendChild(card);
+  }
+}
+
 //? Funktionalität onClick()
 function search(event: Event) {
   event.preventDefault();
   let userInput = inputField;
   if (!userInput) {
-    console.log("Du hast keine Tasks eingegeben.");
+    console.log("Du hast keine Suche eingegeben.");
   }
   // const searchInput = inputField.value.toString().toLowerCase();
   const searchInput = inputField.value.toString();
@@ -92,8 +96,15 @@ function search(event: Event) {
         movie[2].includes(searchInput)
     );
     console.log(result);
+
     if (resultSection) {
       resultCard(result);
+    }
+
+    //? No Result
+    //Wenn array leer dann gib noResultCard aus
+    if (result.length === 0 && resultSection) {
+      noResultCard();
     }
   }
 }
@@ -102,7 +113,6 @@ function yearUpClick(event: Event) {
   event.preventDefault();
   console.log("YearUp");
   if (resultSection) {
-    // resultSection.innerHTML = "";
     let sortedUpArray = [];
     sortedUpArray = movies.sort((a: any, b: any) => a[1] - b[1]);
     console.log({ sortedUpArray });
@@ -112,6 +122,7 @@ function yearUpClick(event: Event) {
 
 function yearDownClick(event: Event) {
   event.preventDefault();
+
   console.log("YearDown");
   if (resultSection) {
     let sortedDownArray = [];
@@ -131,9 +142,28 @@ function bestRateClick(event: Event) {
   }
 }
 
+//? Add Movie To List
+function add(event: Event) {
+  event.preventDefault();
+  let title = titleInput.value;
+  let year = yearInput.value;
+  let duration = durationInput.value;
+  let director = directorInput.value;
+  let genre = genreInput.value;
+  let rating = ratingInput.value;
+  let movie = [title, year, duration, director, genre, rating];
+
+  movies.push(movie);
+  console.log("Added movie:", movie);
+}
+
 //?  EventListener definieren
 if (searchButton) {
   searchButton.addEventListener("click", search);
+}
+
+if (addButton) {
+  addButton.addEventListener("click", add);
 }
 
 if (yearUpButton) {

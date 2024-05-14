@@ -9,11 +9,22 @@
     <title>TS Movies</title>
   </head>
   <body>
-    <h1>Movies for you</h1>
-    <h2>The best movieDB</h2>
+    <h1 class="h1">Movies for you</h1>
+    <h2 class="h2">The best movieDB</h2>
     <form action="">
       <input type="search" name="" id="searchInput" />
       <button id="searchButton">Search</button>
+    </form>
+    <form action="" class="form2">
+      <div class="inputFields">
+        <input type="text" id="titleInput" placeholder="Title" />
+        <input type="text" id="yearInput" placeholder="Year" />
+        <input type="text" id="durationInput" placeholder="Duration" />
+        <input type="text" id="directorInput" placeholder="Director" />
+        <input type="text" id="genreInput" placeholder="Genre" />
+        <input type="text" id="ratingInput" placeholder="Rating" />
+      </div>
+      <button id="addButton">Add Movie</button>
     </form>
     <section>
       <button id="yearUpButton">Year Up</button
