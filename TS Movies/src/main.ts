@@ -28,13 +28,16 @@ const directorInput = document.getElementById(
 ) as HTMLInputElement;
 const genreInput = document.getElementById("genreInput") as HTMLInputElement;
 const ratingInput = document.getElementById("ratingInput") as HTMLInputElement;
-const yearUpButton = document.getElementById("yearUpButton");
+const yearUpButton = document.getElementById(
+  "yearUpButton"
+) as HTMLInputElement;
 const yearDownButton = document.getElementById("yearDownButton");
 const bestRateButton = document.getElementById("bestRateButton");
 const resultSection = document.getElementById("resultSection");
 
 //! Array to LowerCase
 
+//* Ergebnis der Suche wird auf einem Card Element angezeigt
 function resultCard(
   movieList: [string, string, string, string, string[], string][]
 ) {
@@ -66,6 +69,7 @@ function resultCard(
   }
 }
 
+//* Wenn kein Ergebnis gefunden wurde wird ein Card Element 'Not found' angezeigt
 function noResultCard() {
   if (resultSection) {
     const card = document.createElement("div");
@@ -77,7 +81,7 @@ function noResultCard() {
   }
 }
 
-//? Funktionalität onClick()
+//*Search Funktionalität onClick()
 function search(event: Event) {
   event.preventDefault();
   let userInput = inputField;
@@ -96,19 +100,19 @@ function search(event: Event) {
         movie[2].includes(searchInput)
     );
     console.log(result);
-
+    //*wenn ergebnis gefunden dann gib resultCard aus
     if (resultSection) {
       resultCard(result);
     }
 
-    //? No Result
-    //Wenn array leer dann gib noResultCard aus
+    //* No Result
+    //*Wenn array leer dann gib noResultCard aus
     if (result.length === 0 && resultSection) {
       noResultCard();
     }
   }
 }
-
+//* Sortierung YearUp
 function yearUpClick(event: Event) {
   event.preventDefault();
   console.log("YearUp");
@@ -119,7 +123,7 @@ function yearUpClick(event: Event) {
     resultCard(sortedUpArray);
   }
 }
-
+//*Sortierung YearDown
 function yearDownClick(event: Event) {
   event.preventDefault();
 
@@ -131,6 +135,8 @@ function yearDownClick(event: Event) {
     resultCard(sortedDownArray);
   }
 }
+
+//* Sortierung BestRate
 function bestRateClick(event: Event) {
   event.preventDefault();
   console.log("BestRate");
@@ -142,7 +148,8 @@ function bestRateClick(event: Event) {
   }
 }
 
-//? Add Movie To List
+//* Add Movie To List
+//* Neuen Film hinzufügen
 function add(event: Event) {
   event.preventDefault();
   let title = titleInput.value;
@@ -157,7 +164,7 @@ function add(event: Event) {
   console.log("Added movie:", movie);
 }
 
-//?  EventListener definieren
+//*  EventListener definieren
 if (searchButton) {
   searchButton.addEventListener("click", search);
 }
